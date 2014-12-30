@@ -19,7 +19,7 @@ namespace Champion_Personalities
         static void Game_OnGameLoad(EventArgs args)
         {
             string say = "";
-            if (Game.ClockTime < 10)
+            if (Game.ClockTime < 15)
             {
 
                 switch (ObjectManager.Player.ChampionName)
@@ -119,7 +119,28 @@ namespace Champion_Personalities
                     case "Gangplank":
                         say = "Wanna know how my roger got so jolly? Vigorous masturbation.";
                         break;
-                        
+                    case "Gragas":
+                        say = "I'll drink you under the table Skrub then quickscope ur nan";
+                        break;
+                    case "Gnar":
+                        say = "RAAAAAAAAAAAAAAAAAAAWR";
+                        break;
+                    case "Graves":
+                        say = "Riot took my cigar, so I'm gonna take your life.";
+                        break;
+                    case "Hecarim":
+                        say = "My little pony is my favorite show, So many hot babes.";
+                        break;
+                    case "Heimerdinger":
+                        say = "Heim Heim Heim Heim Heim Heim Nye the Science Guy";
+                        break;
+                    case "Irelia":
+                        say = "When the Defeat screen comes up I promise you you're gonna be screaming NERF IRELIA!";
+                        break;
+
+
+
+
 
                         }
              } Utility.DelayAction.Add(5000, () => Game.Say( "/All  " +  say ));
