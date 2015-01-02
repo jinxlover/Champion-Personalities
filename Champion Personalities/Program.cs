@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +19,7 @@ namespace Champion_Personalities
         static void Game_OnGameLoad(EventArgs args)
         {
             string say = "";
-            if (Game.ClockTime < 15)
+            if (Game.ClockTime < 50)
             {
 
                 switch (ObjectManager.Player.ChampionName)
@@ -137,13 +137,70 @@ namespace Champion_Personalities
                     case "Irelia":
                         say = "When the Defeat screen comes up I promise you you're gonna be screaming NERF IRELIA!";
                         break;
+                    case "Janna":
+                        say = "Today's forcast calls for strong winds!";
+                        break;
+                    case "JarvanIV":
+                        say = "I may be a prince, but I'm not stranger to combat, For Demacia!";
+                        break;
+                    case "Jax":
+                        say = "A lamp post is a weapon!";
+                        break;
+                    case "Jayce":
+                        say = "It's Hammer Time!";
+                        break;
+                    case "Jinx":
+                        say = "So Fishbones who will we blow up today? 'Noone! We might hurt someone :<' aaaarrrgh";
+                        break;
+                    case "Kalista":
+                        say = "The Oathbreakers will know no mercy.";
+                        break;
+                    case "Karma":
+                        say = "Karma is a bitch? Well that's just rude.";
+                        break;
+                    case "Karthus":
+                        say = "Is spawn Karthus still a thing? I have to clean my room!";
+                        break;
+                    case "Kassadin":
+                        say = "I once tried to silence my mother, She threw me down a flight of stairs. :<";
+                        break;
+                    case "Katarina":
+                        say = "Time to but on a helmet and face roll my keyboard, Penta incoming.";
+                        break;
+                    case "Kayle":
+                        say = "My sister will know my fury, revenge will be mine.";
+                        break;
+                    case "Kennen":
+                        say = "Pikachu I chose you!!!";
+                        break;
+                    case "Kha'Zix":
+                        say = "This game sure is buggy lately.";
+                        break;
+                    case "Kog'Maw":
+                        say = "Darude Sandstorm is my favorite song, dudududududududu.";
+                        break;
+                    case "LeeSin":
+                        say = "If I miss any Q's forgive me, I'm blind.";
+                        break;
+                    case "Leona":
+                        say = "The sun will smite thee";
+                        break;
+                    case "Lissandra":
+                        say = "Let it goo, let it goooo!";
+                        break;
+                    case "Lucian":
+                        say = "There goes the neighborhood";
+                        break;
+                        
+                       
 
 
 
 
 
-                        }
-             } Utility.DelayAction.Add(5000, () => Game.Say( "/All  " +  say ));
+
+                }
+            } Utility.DelayAction.Add(5000, () => Game.Say("/All  " + say));
         }
     }
 }
