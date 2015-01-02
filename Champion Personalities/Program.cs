@@ -19,7 +19,7 @@ namespace Champion_Personalities
             var rammus = new ChampionQuote("Rammus");
             rammus.AddStartQuote("OK.");
             rammus.AddDeathQuote("Sorry, Ok");
-            rammus.AddDeathQuote
+            rammus.AddDeathQuote();
             _championQuotes.Add(rammus);
 
             // Leblanc
