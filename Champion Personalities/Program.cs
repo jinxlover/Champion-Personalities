@@ -1,206 +1,111 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LeagueSharp;
 using LeagueSharp.Common;
-using SharpDX;
 
 namespace Champion_Personalities
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        private List<ChampionQuote> _championQuotes = new List<ChampionQuote>();
+
+        private static void Main(string[] args)
         {
+            
+            // PUT CHAMPION QUOTES HERE
+
+            // Rammus
+            var rammus = new ChampionQuote("Rammus");
+            rammus.AddStartQuote("OK.");
+            rammus.AddDeathQoute("Test");
+            _championQuotes.Add(rammus);
+
+            // Leblanc
+            var leblanc = new ChampionQuote("Leblanc");
+            leblanc.Add("I'm over here, Now I'm over here, Can't hit what you can't see!");
+            _championQuotes.Add(leblanc);
+
+            // OTHER STUFF
             CustomEvents.Game.OnGameLoad += Game_OnGameLoad;
+            CustomEvents.Game.OnGameEnd += Game_OnGameEnd;
         }
 
-        static void Game_OnGameLoad(EventArgs args)
+        private static void Game_OnGameLoad(EventArgs args)
+		{
+            Game.PrintChat("<font color=\"#1eff00\">Champion Personalities by JinxLover & WorstPing Loaded</font> - <font color=\"#00BFFF\">Loaded</font>");
+            var championName = ObjectManager.Player.BaseSkinName;
+			if(Game.ClockTime < 50)
+			{
+				var cq = _championQuotes.Where(c => c.GetChampionName() == championName).First();
+				if(cq != null)
+				{
+					Utility.DelayAction.Add(5000, () => Game.Say("/all "+cq.GetRandomStartQuote()));
+				}
+			}
+		}
+    }
+
+    public class ChampionQuote
+    {
+        private readonly string _championName;
+
+        private readonly List<string> _startQuotes;
+        private readonly List<string> _deathQuotes;
+        private readonly List<string> _reconnectQuotes;
+        private readonly List<string> _endQuotes;
+
+        private readonly Random random;
+
+        public ChampionQuote(string championName)
         {
-            string say = "";
-            if (Game.ClockTime < 50)
-            {
+            _championName = championName;
+            random = new Random();
+        }
 
-                switch (ObjectManager.Player.ChampionName)
-                {
-                    case "Rammus":
-                        say = "Ok.";
-                        break;
+        public string GetChampionName()
+        {
+            return _championName;
+        }
 
-                    case "Leblanc":
-                        say = "I'm over here, Now I'm over here, Can't hit what you can't see!";
-                        break;
+        public void AddStartQuote(string quote)
+        {
+            _startQuotes.Add(quote);
+        }
 
-                    case "Garen":
-                        say = "For Demacia! and for the Crowngaurds!";
-                        break;
-                    case "Annie":
-                        say = "Tibbers? Tibbers? Has anyone seen my bear Tibbers?";
-                        break;
-                    case "Aatrox":
-                        say = "My blade will taste war on this day.";
-                        break;
-                    case "Ahri":
-                        say = "Nine-Tailed fox? What is this! Naruto!?";
-                        break;
-                    case "Akali":
-                        say = "Too many noobs on the dancefloor ^So many noobs^";
-                        break;
-                    case "Alistar":
-                        say = "You can't milk those! Well, Maybe if you ask nicely";
-                        break;
-                    case "Amumu":
-                        say = "Sometimes when noone's looking I smile. Tell noone of this.";
-                        break;
-                    case "Anivia":
-                        say = "No, My name is not Elsa!";
-                        break;
-                    case "Ashe":
-                        say = "No, I will not bring you 'Dat Ashe'";
-                        break;
-                    case "Azir":
-                        say = "Oppa Pidgeon Style!";
-                        break;
-                    case "Blitzcrank":
-                        say = "3 Laws of robotics be damned, Bring me dat ASS!";
-                        break;
-                    case "Brand":
-                        say = "It's getting hot in here, So take off all your clothes!";
-                        break;
-                    case "Braum":
-                        say = "You say a shield isn't a weapon? Come a little closer and say that.";
-                        break;
-                    case "Caitlyn":
-                        say = "You wanna see a Hat trick? *Pulls a rabbit out of her hat* Hah! Bet you didn't expect that";
-                        break;
-                    case "Cassiopeia":
-                        say = "FunFact: My sister is Katarina! #Jelly";
-                        break;
-                    case "Cho'Gath":
-                        say = "OMNOMNOMNOMNOMNOMNOMNOMNOM, Mmmm Quite good sir.";
-                        break;
-                    case "Corki":
-                        say = "Press {R} or {Z} twice to do a barrel roll!";
-                        break;
-                    case "Darius": //Honestly Couldn't think of something here lel
-                        say = "Has anyone seen my brother Draven? He stole one of my axes!";
-                        break;
-                    case "Diana":
-                        say = "Embrace the Moon!";
-                        break;
-                    case "Dr. Mundo":
-                        say = "Mundo Mundo's where he Mundo's";
-                        break;
-                    case "Draven":
-                        say = "Welcome to the League of Draaaaaaaaaaaaaaven";
-                        break;
-                    case "Elise":
-                        say = "Is this my web? Then I don't feel safe here.";
-                        break;
-                    case "Evelynn":
-                        say = "I'm hot to trot, Take a spin boys";
-                        break;
-                    case "Ezreal":
-                        say = "Who needs a ma- Uh guys, I think I'm lost.";
-                        break;
-                    case "Fiddlesticks":
-                        say = "You will FEAR me and DREAD my PRESENCE, heh get it?";
-                        break;
-                    case "Fiora":
-                        say = "I may be a grand duelist but I am also a grand ballerina!";
-                        break;
-                    case "Fizz":
-                        say = "Hey look at me playing fizz, I must be a diamond fizz main guise watch out";
-                        break;
-                    case "Galio":
-                        say = "You know what my friends call my eyes? The Death Star.";
-                        break;
-                    case "Gangplank":
-                        say = "Wanna know how my roger got so jolly? Vigorous masturbation.";
-                        break;
-                    case "Gragas":
-                        say = "I'll drink you under the table Skrub then quickscope ur nan";
-                        break;
-                    case "Gnar":
-                        say = "RAAAAAAAAAAAAAAAAAAAWR";
-                        break;
-                    case "Graves":
-                        say = "Riot took my cigar, so I'm gonna take your life.";
-                        break;
-                    case "Hecarim":
-                        say = "My little pony is my favorite show, So many hot babes.";
-                        break;
-                    case "Heimerdinger":
-                        say = "Heim Heim Heim Heim Heim Heim Nye the Science Guy";
-                        break;
-                    case "Irelia":
-                        say = "When the Defeat screen comes up I promise you you're gonna be screaming NERF IRELIA!";
-                        break;
-                    case "Janna":
-                        say = "Today's forcast calls for strong winds!";
-                        break;
-                    case "JarvanIV":
-                        say = "I may be a prince, but I'm not stranger to combat, For Demacia!";
-                        break;
-                    case "Jax":
-                        say = "A lamp post is a weapon!";
-                        break;
-                    case "Jayce":
-                        say = "It's Hammer Time!";
-                        break;
-                    case "Jinx":
-                        say = "So Fishbones who will we blow up today? 'Noone! We might hurt someone :<' aaaarrrgh";
-                        break;
-                    case "Kalista":
-                        say = "The Oathbreakers will know no mercy.";
-                        break;
-                    case "Karma":
-                        say = "Karma is a bitch? Well that's just rude.";
-                        break;
-                    case "Karthus":
-                        say = "Is spawn Karthus still a thing? I have to clean my room!";
-                        break;
-                    case "Kassadin":
-                        say = "I once tried to silence my mother, She threw me down a flight of stairs. :<";
-                        break;
-                    case "Katarina":
-                        say = "Time to but on a helmet and face roll my keyboard, Penta incoming.";
-                        break;
-                    case "Kayle":
-                        say = "My sister will know my fury, revenge will be mine.";
-                        break;
-                    case "Kennen":
-                        say = "Pikachu I chose you!!!";
-                        break;
-                    case "Kha'Zix":
-                        say = "This game sure is buggy lately.";
-                        break;
-                    case "Kog'Maw":
-                        say = "Darude Sandstorm is my favorite song, dudududududududu.";
-                        break;
-                    case "LeeSin":
-                        say = "If I miss any Q's forgive me, I'm blind.";
-                        break;
-                    case "Leona":
-                        say = "The sun will smite thee";
-                        break;
-                    case "Lissandra":
-                        say = "Let it goo, let it goooo!";
-                        break;
-                    case "Lucian":
-                        say = "There goes the neighborhood";
-                        break;
-                        
-                       
+        public string GetRandomStartQuote()
+        {
+            return _startQuotes[random.Next(0, _startQuotes.Length)];
+        }
 
+        public void AddDeathQuote(string quote)
+        {
+            _deathQuotes.Add(quote);
+        }
 
+        public string GetRandomDeathQuote()
+        {
+            return _deathQuotes[random.Next(0, _deathQuotes.Length)];
+        }
 
+        public void AddReconnectQuote(string quote)
+        {
+            _reconnectQuotes.Add(quote);
+        }
 
+        public string GetRandomReconnectQuote()
+        {
+            return _reconnectQuotes[random.Next(0, _reconnectQuotes.Length)];
+        }
 
+        public void AddEndQuote(string quote)
+        {
+            _endQuotes.Add(quote);
+        }
 
-                }
-            } Utility.DelayAction.Add(5000, () => Game.Say("/All  " + say));
+        public string GetRandomEndQuote()
+        {
+            return _endQuotes[random.Next(0, _endQuotes.Length)];
         }
     }
 }
