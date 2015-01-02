@@ -8,7 +8,7 @@ namespace Champion_Personalities
 {
     public class Program
     {
-        private List<ChampionQuote> _championQuotes = new List<ChampionQuote>();
+        private static List<ChampionQuote> _championQuotes = new List<ChampionQuote>();
 
         private static void Main(string[] args)
         {
@@ -18,7 +18,8 @@ namespace Champion_Personalities
             // Rammus
             var rammus = new ChampionQuote("Rammus");
             rammus.AddStartQuote("OK.");
-            rammus.AddDeathQoute("Test");
+            rammus.AddDeathQuote("Sorry, Ok");
+            rammus.AddDeathQuote
             _championQuotes.Add(rammus);
 
             // Leblanc
