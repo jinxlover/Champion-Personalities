@@ -28,8 +28,6 @@ namespace ConsoleApplication5
             rammus.AddReconnectQuote("I'm back guys, internet is freaking out");
             rammus.AddReconnectQuote("My shit if like literally on fire, sorry guys lol");
             rammus.AddReconnectQuote("Mom turned off my router");
-            rammus.AddEndQuote("Good Game well played, I rolled all over them!");
-            rammus.AddEndQuote("GG ez boys we did it <3");
             _championQuotes.Add(rammus);
 
             var alistar = new ChampionQuote("Alistar");
@@ -43,7 +41,6 @@ namespace ConsoleApplication5
             alistar.AddDeathQuote("Rito plis fix serverino");
             alistar.AddDeathQuote("My mom is downloading lesbian pron off utorrent, sorry team");
             alistar.AddDeathQuote("Lagging so bad!");
-            
             _championQuotes.Add(alistar);
 
             var annie = new ChampionQuote("Annie");
@@ -56,7 +53,6 @@ namespace ConsoleApplication5
             annie.AddDeathQuote("Rito plis fix serverino");
             annie.AddDeathQuote("My mom is downloading lesbian pron off utorrent, sorry team");
             annie.AddDeathQuote("Lagging so bad!");
-            
             _championQuotes.Add(annie);
 
             var blitzcrank = new ChampionQuote("Blitzcrank");
